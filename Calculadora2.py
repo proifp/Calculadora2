@@ -6,42 +6,49 @@ presion_atmosferica= 101.3
 mmhg = 7.501
 densidad_agua = 1e-3
 densidad_agua_salada = 1.03e-3
-"""
-Calcular la presion de un fluido en otro planeta, cuando el codigo este por terminar
-"""
+Kilopascales = 1e3
+
 def Fuerza_peso():
     Fuerza = float(input('ingresa la masa'))
-    return(Fuerza * gravedad)
+    Fuerza = Fuerza * gravedad
+    return(Fuerza)
 
 def coversion_presion():
-    pregunta1 = input('¿tienes mmhg, Atm?')
+    print('Para esta calculadora trabajaremos en Kilopascales')
+    pregunta1 = input('¿tienes mmhg, Atm, Pa?')
     if(pregunta1 == 'mmhg'):
         medida1 = float(input('cantidad en mmhg: '))
         return(medida1/mmhg)
     if(pregunta1 == 'Atm'):
         medida1 = float(input('inserta la cantidad de Atm'))
         return(medida1/presion_atmosferica)
-
+    if(pregunta1 == 'Pa'):
+        medida1 = float(input('inserta la cantidad de Pa'))
+        return(medida1*Kilopascales)
 def calculadora_areas():
-    pregunta1 = input('¿Qué tipo de figura es?')
+    pregunta1 = input('¿Qué tipo de figura es?: ')
     if(pregunta1 == 'Cuadrado'):
-        medidas = int(input('Medida de uno de sus lados'))
-        return(medidas*4)
+        lados = int(input('Medida de uno de sus lados en metros: '))
+        Area = lados*lados
+        return(Area)
 
     if(pregunta1 == 'Circulo'):
-        pregunta2 = input('¿Tienes diametro o Radio?')
+        pregunta2 = input('¿Tienes diametro o Radio?: ')
         if(pregunta2 == 'Radio'):
-            medida1 = int(input('ingresa el Radio'))
-            return(pi*medida1**2)
+            medida1 = int(input('ingresa el Radio en metros: '))
+            Area = pi*medida1**2
+            return(Area)
         if(pregunta2 == 'Diametro'):
-            medida1 = int(input('inserta el diametro'))
+            medida1 = int(input('inserta el diametro en metros: '))
             Diametro = medida1/2
-            return(pi*Diametro**2)
+            Diametro = pi*Diametro**2
+            return(Diametro)
     
     if(pregunta1 == 'Rectangulo'):
-        medida1 = int(input('Medida de la altura'))
-        medida2 = int(input('Medida de la base'))
-        return(medida1 * medida2)
+        altura = int(input('Medida de la altura en metros: '))
+        base = int(input('Medida de la base en metros: '))
+        Area = base*altura
+        return(Area)
     
 
 def calculadora_Presion():
@@ -52,25 +59,25 @@ def calculadora_Presion():
         if(pregunta2 == Longitudes):
             medida1 = int(input('inserta la fuerza'))
             calculadora_areas()
-            print( medida1* calculadora_areas())
+            return(medida1* calculadora_areas())
         if(pregunta2 == 'Area'):
             medida1 = int(input('inserta la Fuerza'))
             medida2 = int(input('inserta Area'))
-            print(medida1/medida2)
+            return(medida1/medida2)
     if(pregunta1 == 'Fuerza'):
         pregunta2 = input('Conoces el Area o tienes Longitudes: ')
         if(pregunta2 == Longitudes):
             medida1 = int(input('inserta la Presion: '))
-            calculadora_areas()
-            print( medida1* calculadora_areas())
+            Area = calculadora_areas()
+            return( medida1 * Area) 
         if(pregunta2 == 'Area'):
             medida1 = int(input('inserta la Presion: '))
             medida2 = int(input('inserta Area: '))
-            print(medida1/medida2)
+            return(medida1/medida2)
     if(pregunta1 == 'Area'):
         medida1 = float(input('Inserta la Fuerza: ')) 
         medida2 = float(input('Inserta la Presion: '))
-        print(medida1/medida2)
+        return(medida1/medida2)
 
 def Presion_en_un_fluido():
     pregunta1 = input('¿Quieres calcular Presion, Densidad, Altura?: ')
@@ -78,14 +85,18 @@ def Presion_en_un_fluido():
         pregunta2 = input('¿La densidad es de Agua salada, Agua natural o ninguna de las dos?')
         if(pregunta2 == 'Agua natural'):
             Altura = float(input('Solo ingresa la Altura: '))
-            print(gravedad * medida1 * densidad_agua)
+            Presion = gravedad * Altura * densidad_agua 
+            return(Presion)
         elif(pregunta2 == 'Agua salada'):
             Altura = float(input('Solo ingresa la Altura: '))
-            print(gravedad * medida1 * densidad_agua_salada)
+            Presion = gravedad * Altura * densidad_agua_salada
+            return(Presion)
         else:
             densidad_objeto = float(input('Inserta la densidad del objeto en gramos: '))
             Altura = float(input('Solo ingresa la Altura: '))
-            print(gravedad * medida1 * densidad_agua)
+            Presion = gravedad * Altura * densidad_objeto
+            return(Presion)
+
     if(pregunta1 == 'Densidad'):
         pregunta2 = input('¿Conoces la presion? Si/No: ')
         if(pregunta2 == 'Si'):
@@ -93,27 +104,427 @@ def Presion_en_un_fluido():
             pregunta3 = input('¿La presion la tienes en Kilopascales? Si/No: ')
             if(pregunta3 == 'Si'):
                 Presion = float(input('Ingresa la Presion en Kilopascales: '))
-                print(Presion/gravedad*Altura)
+                Densidad = Presion/gravedad*Altura
+                return(Densidad)
             elif(pregunta3 == 'No'):
                 Altura = float(input('Ingresa la altura en metros: '))
-                print(coversion_presion()/gravedad*Altura)
+                Presion = coversion_presion()
+                Densidad = Presion/gravedad*Altura
+                return(Densidad)
         if(pregunta2 == 'No'):
             Altura = float(input('Ingresa la altura en metros: '))
-            print(calculadora_Presion()/gravedad*Altura)
+            Presion = calculadora_Presion()
+            Densidad = calculadora_Presion()/gravedad*Altura
+            return(Densidad)
 
     if(pregunta1 == 'Altura'):
         pregunta2 = ('¿Conoces la presion? Si/No: ')
         if(pregunta2 == 'Si'):
             pregunta3 = input('¿La densidad es de Agua salada, Agua natural o ninguna de las dos?: ')
             if(pregunta3 == 'Agua salada'):
-                Presion= float(input('¿Conoces la presion en Kilopascales?'))                
+                pregunta4 = input('¿Conoces la presion en Kilopascales? Si/No: ')
+                if(pregunta4 == 'Si'):
+                    Presion = float(input('Ingresa la presion en kilopascales: '))
+                    return(Presion/densidad_agua_salada*gravedad)
+                if(pregunta4 == 'No'):
+                    return(coversion_presion()/densidad_agua_salada*gravedad)
+            if(pregunta3 == 'Agua natural'):
+                pregunta4 = input('¿Conoces la presion en Kilopascales? Si/No: ')
+                if(pregunta4 == 'Si'):
+                    Presion = float(input('Ingresa la presion en kilopascales: '))
+                    return(Presion/densidad_agua_salada*gravedad)
+                if(pregunta4 == 'No'):
+                    return(coversion_presion()/densidad_agua*gravedad)
+            if(pregunta3 == 'ninguna de las dos'):
+                pregunta4 = input('¿Tienes que calcular la densidad? Si/No: ')
+                if(pregunta4 == 'No'):
+                    pregunta5 = input('¿Conoces presion en Kilopascales? Si/No: ')
+                    if(pregunta5 == 'Si'):
+                        Presion = float(input('Inserta la presion: '))
+                        Densidad = float(input('Inserta la densidad: '))
+                        Altura = Presion/Densidad*gravedad
+                        return(Altura)
+                    elif(pregunta5 =='No'):
+                        Densidad = float(input('Inserta la densidad: '))
+                        Altura = conversion_presion()/Densidad*gravedad
+                        return(Altura)
+                elif(pregunta4 == 'Si'):
+                    Densidad = calculadora_Densidad()
+                    pregunta5 = input('¿Conoces presion en Kilopascales? Si/No: ')
+                    if(pregunta5 == 'Si'):
+                        Presion = float(input('Inserta la presion: '))
+                        Densidad = float(input('Inserta la densidad: '))
+                        Altura = Presion/Densidad*gravedad
+                        return(Altura)
+                    elif(pregunta5 =='No'):
+                        Densidad = float(input('Inserta la densidad: '))
+                        Altura = conversion_presion()/Densidad*gravedad
+                        return(Altura)
 
+def Principio_de_pascal():
+    pregunta1 = input('Podemos calcular Fuerza1, Fuerza2, Area1, Area2: ')
+    if(pregunta1 == 'Fuerza1'):
+        pregunta2 = input('¿Tienes que convertir la Fuerza2? Si/No: ')
+        if(pregunta2 == 'Si'):
+            Fuerza2 = Fuerza_peso()
+            pregunta3 = input('¿Tienes que calcular ambas areas, solo Area1, Solo Area2, ninguna?: ')
+            if(pregunta3 == 'Ambas'):
+                Area1 = calculadora_areas()
+                Area2 = calculadora_areas()
+                Fuerza1 = Fuerza2/Area2
+                Fuerza1 = Fuerza1*Area1
+                return(Fuerza1)            
+            if(pregunta3 == 'Area1'):
+                Area1 = calculadora_areas()
+                Area2 = float(input('Valor del Area2 en metros: ')
+                Fuerza1 = Fuerza2/Area2
+                Fuerza1 = Fuerza1*Area1
+                return(Fuerza1)
+            if(pregunta3 == 'Area2'):
+                Area1 = float(input('Valor del Area2 en metros: ')
+                Area2 = calculadora_areas()
+                Fuerza = Fuerza2/Area2
+                Fuerza1 = Fuerza*Area1
+                return(Fuerza1)            
+            if(pregunta3 == 'ninguna'):
+                Area1 = float(input('Valor del Area2 en metros: ')
+                Area2 = float(input('Valor del Area2 en metros: ')
+                Fuerza = Fuerza2/Area2
+                Fuerza1 = Fuerza*Area1
+                return(Fuerza1)
+        if(pregunta2 == 'No'):
+            Fuerza2 = float(input('Inserta el valor de la fuerza en newtons: '))
+            pregunta3 = input('¿Tienes que calcular ambas areas, solo Area1, Solo Area2, ninguna?: ')
+            if(pregunta3 == 'Ambas'):
+                Area1 = calculadora_areas()
+                Area2 = calculadora_areas()
+                Fuerza1 = Fuerza2/Area2
+                Fuerza1 = Fuerza1*Area1
+                return(Fuerza1)            
+            elif(pregunta3 == 'Area1'):
+                Area1 = calculadora_areas()
+                Area2 = float(input('Valor del Area2 en metros: ')
+                Fuerza1 = Fuerza2/Area2
+                Fuerza1 = Fuerza1*Area1
+                return(Fuerza1)
+            elif(pregunta3 == 'Area2'):
+                Area1 = float(input('Valor del Area2 en metros: ')
+                Area2 = calculadora_areas()
+                Fuerza1 = Fuerza2/Area2
+                Fuerza1 = Fuerza1*Area1
+                return(Fuerza1)            
+            elif(pregunta3 == 'ninguna'):
+                Area1 = float(input('Valor del Area2 en metros: ')
+                Area2 = float(input('Valor del Area2 en metros: ')
+                Fuerza1 = Fuerza2/Area2
+                Fuerza1 = Fuerza1*Area1
+                return(Fuerza1)
+    
+    if(pregunta1 == 'Fuerza2'):
+        pregunta2 = input('¿Tienes que convertir la Fuerza1? Si/No: ')
+        if(pregunta2 == 'Si'):
+            Fuerza1 = Fuerza_peso()
+            pregunta3 = input('¿Tienes que calcular ambas areas, solo Area1, Solo Area2, ninguna?: ')
+            if(pregunta3 == 'Ambas'):
+                Area1 = calculadora_areas()
+                Area2 = calculadora_areas()
+                Fuerza2 = Fuerza1/Area1
+                Fuerza2 = Fuerza2*Area2
+                return(Fuerza2)            
+            elif(pregunta3 == 'Area1'):
+                Area1 = calculadora_areas()
+                Area2 = float(input('Valor del Area2 en metros: ')
+                Fuerza2 = Fuerza1/Area1
+                Fuerza2 = Fuerza2*Area2
+                return(Fuerza2)
+            elif(pregunta3 == 'Area2'):
+                Area1 = float(input('Valor del Area2 en metros: ')
+                Area2 = calculadora_areas()
+                Fuerza2 = Fuerza1/Area1
+                Fuerza2 = Fuerza2*Area2
+                return(Fuerza2)            
+            elif(pregunta3 == 'ninguna'):
+                Area1 = float(input('Valor del Area2 en metros: ')
+                Area2 = float(input('Valor del Area2 en metros: ')
+                Fuerza2 = Fuerza1/Area1
+                Fuerza2 = Fuerza2*Area2
+                return(Fuerza2)
+        if(pregunta2 == 'No'):
+            Fuerza2 = float(input('Inserta el valor de la fuerza en newtons: '))
+            pregunta3 = input('¿Tienes que calcular ambas areas, solo Area1, Solo Area2, ninguna?: ')
+            if(pregunta3 == 'Ambas'):
+                Area1 = calculadora_areas()
+                Area2 = calculadora_areas()
+                Fuerza2 = Fuerza1/Area1
+                Fuerza2 = Fuerza2*Area2
+                return(Fuerza2)            
+            elif(pregunta3 == 'Area1'):
+                Area1 = calculadora_areas()
+                Area2 = float(input('Valor del Area2 en metros: ')
+                Fuerza2 = Fuerza1/Area1
+                Fuerza2 = Fuerza2*Area2
+                return(Fuerza2)
+            elif(pregunta3 == 'Area2'):
+                Area1 = float(input('Valor del Area2 en metros: ')
+                Area2 = calculadora_areas()
+                Fuerza2 = Fuerza1/Area1
+                Fuerza2 = Fuerza2*Area2
+                return(Fuerza2)            
+            elif(pregunta3 == 'ninguna'):
+                Area1 = float(input('Valor del Area2 en metros: ')
+                Area2 = float(input('Valor del Area2 en metros: ')
+                Fuerza2 = Fuerza1/Area1
+                Fuerza2 = Fuerza2*Area2
+                return(Fuerza2)
 
-#presion/gravedad*altura
-#Presion/pensidad*gravedad
+    if(pregunta1 == 'Area1'):
+        pregunta2 = input('¿Conoces el Area2?: Si/No: ')
+        if(pregunta2 == 'Si'):
+            Area2 = float(input('Ingresa el valor del Area2 en metros: '))
+            pregunta3 = input('¿Tienes que convertir Fuerza1, Fuerza2, Ambos, Ninguno?')
+            if(pregunta3 == 'Ambos'):
+                Fuerza1 = Fuerza_peso()
+                Fuerza2 = Fuerza_peso()
+                Area1 = Fuerza1*Area2
+                Area1 = Area1/Fuerza2
+                return(Area1)
+            elif(pregunta3 == 'Fuerza1'):
+                Fuerza1 = Fuerza_peso()
+                Fuerza2 = float(input('Inserta el valor de la Fuerza2 en newtons: '))
+                Area1 = Fuerza1*Area2
+                Area1 = Area1/Fuerza2
+                return(Area1)
+            elif(pregunta3 == 'Fuerza2'):
+                Fuerza1 = float(input('Inserta el valor de la Fuerza2 en newtons: '))
+                Fuerza2 = Fuerza_peso()
+                Area1 = Fuerza1*Area2
+                Area1 = Area1/Fuerza2
+                return(Area1)
+            elif(pregunta3 == 'Ninguno'):
+                Fuerza1 = float(input('Inserta el valor de la Fuerza2 en newtons: '))
+                Fuerza2 = float(input('Inserta el valor de la Fuerza2 en newtons: '))
+                Area1 = Fuerza1*Area2
+                Area1 = Area1/Fuerza2
+                return(Area1)
+        if(pregunta2 == 'No'):
+            Area2 = calculadora_areas()
+            pregunta3 = input('¿Tienes que convertir Fuerza1, Fuerza2, Ambos, Ninguno?')
+            if(pregunta3 == 'Ambos'):
+                Fuerza1 = Fuerza_peso()
+                Fuerza2 = Fuerza_peso()
+                Area1 = Fuerza1*Area2
+                Area1 = Area1/Fuerza2
+                return(Area1)
+            elif(pregunta3 == 'Fuerza1'):
+                Fuerza1 = Fuerza_peso()
+                Fuerza2 = float(input('Inserta el valor de la Fuerza2 en newtons: '))
+                Area1 = Fuerza1*Area2
+                Area1 = Area1/Fuerza2
+                return(Area1)
+            elif(pregunta3 == 'Fuerza2'):
+                Fuerza1 = float(input('Inserta el valor de la Fuerza2 en newtons: '))
+                Fuerza2 = Fuerza_peso()
+                Area1 = Fuerza1*Area2
+                Area1 = Area1/Fuerza2
+                return(Area1)
+            elif(pregunta3 == 'Ninguno'):
+                Fuerza1 = float(input('Inserta el valor de la Fuerza2 en newtons: '))
+                Fuerza2 = float(input('Inserta el valor de la Fuerza2 en newtons: '))
+                Area1 = Fuerza1*Area2
+                Area1 = Area1/Fuerza2
+                return(Area1)
+    
+    if(pregunta1 == 'Area2'):
+        pregunta2 = input('¿Conoces el Area1?: Si/No: ')
+        if(pregunta2 == 'Si'):
+            Area1 = float(input('Ingresa el valor del Area1 en metros: '))
+            pregunta3 = input('¿Tienes que convertir Fuerza1, Fuerza2, Ambos, Ninguno?')
+            if(pregunta3 == 'Ambos'):
+                Fuerza1 = Fuerza_peso()
+                Fuerza2 = Fuerza_peso()
+                Area2 = Area1*Fuerza2
+                Area2 = Area1/Fuerza1
+                return(Area1)
+            elif(pregunta3 == 'Fuerza1'):
+                Fuerza1 = Fuerza_peso()
+                Fuerza2 = float(input('Inserta el valor de la Fuerza2 en newtons: '))
+                Area2 = Area1*Fuerza2
+                Area2 = Area1/Fuerza1
+                return(Area1)
+            elif(pregunta3 == 'Fuerza2'):
+                Fuerza1 = float(input('Inserta el valor de la Fuerza2 en newtons: '))
+                Fuerza2 = Fuerza_peso()
+                Area2 = Area1*Fuerza2
+                Area2 = Area1/Fuerza1
+                return(Area1)
+            elif(pregunta3 == 'Ninguno'):
+                Fuerza1 = float(input('Inserta el valor de la Fuerza2 en newtons: '))
+                Fuerza2 = float(input('Inserta el valor de la Fuerza2 en newtons: '))
+                Area2 = Area1*Fuerza2
+                Area2 = Area1/Fuerza1
+                return(Area1)
+        if(pregunta2 == 'No'):
+            Area1 = calculadora_areas()
+            pregunta3 = input('¿Tienes que convertir Fuerza1, Fuerza2, Ambos, Ninguno?')
+            if(pregunta3 == 'Ambos'):
+                Fuerza1 = Fuerza_peso()
+                Fuerza2 = Fuerza_peso()
+                Area2 = Area1*Fuerza2
+                Area2 = Area1/Fuerza1
+                return(Area1)
+            elif(pregunta3 == 'Fuerza1'):
+                Fuerza1 = Fuerza_peso()
+                Fuerza2 = float(input('Inserta el valor de la Fuerza2 en newtons: '))
+                Area2 = Area1*Fuerza2
+                Area2 = Area1/Fuerza1
+                return(Area1)
+            elif(pregunta3 == 'Fuerza2'):
+                Fuerza1 = float(input('Inserta el valor de la Fuerza2 en newtons: '))
+                Fuerza2 = Fuerza_peso()
+                Area2 = Area1*Fuerza2
+                Area2 = Area1/Fuerza1
+                return(Area1)
+            elif(pregunta3 == 'Ninguno'):
+                Fuerza1 = float(input('Inserta el valor de la Fuerza2 en newtons: '))
+                Fuerza2 = float(input('Inserta el valor de la Fuerza2 en newtons: '))
+                Area2 = Area1*Fuerza2
+                Area2 = Area1/Fuerza1
+                return(Area1)
+                                
+def Principio_de_Arquimedes():
+    pregunta1 = input('¿Quieres calcular Presion total hacia abajo, Presion total hacia arriba, Fuerza1, Fuerza2, Fuerza bollante?: ')
+    if(pregunta1 == 'Presion total hacia arriba'):
+        pregunta2 = input('¿Quieres calcular la Presion total hacia abajo, Densidad o Altura?: ')
+        if(pregunta2 == 'Presion total hacia abajo'):
+            pregunta3 = input('¿Tienes que calcular la densidad o es densidad de Agua natural, Agua salada? Si/No/Agua natural/Agua salada: ')                    
+            if(pregunta3 == 'Si'):
+                Densidad = calculadora_Densidad()
+                Altura1 = float(input('inserta la Altura1 en metros: '))
+                Presion_total_hacia_arriba = presion_atmosferica + Densidad*gravedad*Altura1
+                return(Presion_total_hacia_arriba)
+            if(pregunta3 == 'No'):
+                Densidad1 = float(input('inserta la Densidad1 en Kg/M: '))
+                Altura1 = float(input('inserta la Altura1 en metros: '))
+                Presion_total_hacia_arriba = presion_atmosferica + Densidad*gravedad*Altura1
+                return(Presion_total_hacia_arriba)
+            if(pregunta3 == 'Agua natural'):
+                Densidad1 = densidad_agua
+                Altura1 = float(input('inserta la Altura1 en metros: '))
+                Presion_total_hacia_arriba = presion_atmosferica + Densidad*gravedad*Altura1
+                return(Presion_total_hacia_arriba)
+            if(pregunta3 == 'Agua salada'):
+                Densidad1 = densidad_agua_salada
+                Altura1 = float(input('inserta la Altura1 en metros: '))
+                Presion_total_hacia_arriba = presion_atmosferica + Densidad*gravedad*Altura1
+                return(Presion_total_hacia_arriba)
+
+        if(pregunta2 == 'Densidad'):
+            Presion_total_abajo = float(input('inserta la Presion total hacia abajo en Kilo pascales: '))     
+            Altura1 = float(input('inserta la Altura1 en metros: '))
+            Densidad1 = Presion_en_un_fluido/gravedad*Altura1-presion_atmosferica            
+            return(Densidad1)
         
-        
+        if(pregunta2 == 'Altura'):
+            Presion_total_hacia_abajo = float(input('inserta la Presion total hacia abajo en Kilo pascales: '))
+            pregunta3= input('¿Tienes que calcular la Densidad o es Densidad de Agua natural o Densidad de agua salada? Si/No/Agua natural/Agua salada ')
+            if(pregunta3 == 'Si'):
+                Densidad1 = float(input('Inserta el valor de la densidad en Kg/m'))
+                Altura = Presion_total_hacia_abajo/gravedad
+                Altura = Altura-presion_atmosferica-gravedad
+                return(Altura)                             
+            if(pregunta3 == 'No'):
+                Densidad1 = calculadora_Densidad()
+                Altura = Presion_total_hacia_abajo/gravedad
+                Altura = Altura-presion_atmosferica-gravedad
+                return(Altura)                             
+            if(pregunta3 == 'Agua natural'):
+                Densidad1 = densidad_agua
+                Altura = Presion_total_hacia_abajo/gravedad
+                Altura = Altura-presion_atmosferica-gravedad
+                return(Altura)                             
+            if(pregunta3 == 'Agua salada'):
+                Densidad1 = densidad_agua_salada
+                Altura = Presion_total_hacia_abajo/gravedad
+                Altura = Altura-presion_atmosferica-gravedad
+                return(Altura)                             
+                
 
+    #P1=Pa+densidad·gravedad·altura1    
+    elif(pregunta1 == 'Presion total hacia abajo'):
+        pregunta2 = input('¿Quieres calcular la Presion total hacia abajo, Densidad o Altura?: ')
+        if(pregunta2 == 'Presion total hacia abajo'):
+            pregunta3 = input('¿Tienes que calcular la densidad o es densidad de Agua natural, Agua salada? Si/No/Agua natural/Agua salada: ')                    
+            if(pregunta3 == 'Si'):
+                Densidad = calculadora_Densidad()
+                Altura1 = float(input('inserta la Altura1 en metros: '))
+                Presion_total_hacia_arriba = presion_atmosferica + Densidad*gravedad*Altura1
+                return(Presion_total_hacia_arriba)
+            if(pregunta3 == 'No'):
+                Densidad1 = float(input('inserta la Densidad1 en Kg/M: '))
+                Altura1 = float(input('inserta la Altura1 en metros: '))
+                Presion_total_hacia_arriba = presion_atmosferica + Densidad*gravedad*Altura1
+                return(Presion_total_hacia_arriba)
+            if(pregunta3 == 'Agua natural'):
+                Densidad1 = densidad_agua
+                Altura1 = float(input('inserta la Altura1 en metros: '))
+                Presion_total_hacia_arriba = presion_atmosferica + Densidad*gravedad*Altura1
+                return(Presion_total_hacia_arriba)
+            if(pregunta3 == 'Agua salada'):
+                Densidad1 = densidad_agua_salada
+                Altura1 = float(input('inserta la Altura1 en metros: '))
+                Presion_total_hacia_arriba = presion_atmosferica + Densidad*gravedad*Altura1
+                return(Presion_total_hacia_arriba)
+
+        if(pregunta2 == 'Densidad'):
+            Presion_total_abajo = float(input('inserta la Presion total hacia abajo en Kilo pascales: '))     
+            Altura1 = float(input('inserta la Altura1 en metros: '))
+            Densidad1 = Presion_en_un_fluido/gravedad*Altura1-presion_atmosferica            
+            return(Densidad1)
+        
+        if(pregunta2 == 'Altura'):
+            Presion_total_hacia_abajo = float(input('inserta la Presion total hacia abajo en Kilo pascales: '))
+            pregunta3= input('¿Tienes que calcular la Densidad o es Densidad de Agua natural o Densidad de agua salada? Si/No/Agua natural/Agua salada ')
+            if(pregunta3 == 'Si'):
+                Densidad1 = float(input('Inserta el valor de la densidad en Kg/m'))
+                Altura = Presion_total_hacia_abajo/gravedad
+                Altura = Altura-presion_atmosferica-gravedad
+                return(Altura)                             
+            if(pregunta3 == 'No'):
+                Densidad1 = calculadora_Densidad()
+                Altura = Presion_total_hacia_abajo/gravedad
+                Altura = Altura-presion_atmosferica-gravedad
+                return(Altura)                             
+            if(pregunta3 == 'Agua natural'):
+                Densidad1 = densidad_agua
+                Altura = Presion_total_hacia_abajo/gravedad
+                Altura = Altura-presion_atmosferica-gravedad
+                return(Altura)                             
+            if(pregunta3 == 'Agua salada'):
+                Densidad1 = densidad_agua_salada
+                Altura = Presion_total_hacia_abajo/gravedad
+                Altura = Altura-presion_atmosferica-gravedad
+                return(Altura)                             
+                
+    
+    #P2=Pa+densidad·gravedad·altura1
+    elif(pregunta1 == 'Fuerza1'):
+        
+    #F1 = P1·A
+    elif(pregunta1 == 'Fuerza2'):
+    
+    #F1 = P1·A
+    elif(pregunta1 == 'Fuerza bollante'):
+    
+    #FB = P1·densidad·gravedad·Volumen
+    if(pregunta3 == 'No'):
+                Densidad1 = calculadora_Densidad
+                Altura = Presion_total_hacia_abajo/gravedad
+                Altura = Altura-presion_atmosferica-gravedad
+                return(Altura)                             
+            
+
+
+    
 def Peso_Masa():
     Peso= float(input('¿Cual es el peso?'))
     Masa= Peso/gravedad
@@ -212,8 +623,6 @@ def calculadora_Densidad():
             magnitud1 = float(input('inserta la Densidad'))
             magnitud2 = float(input('inserta la Volumen'))
             print(magnitud1/magnitud2)
-            
-
 
 def Longitud():
 
